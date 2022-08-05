@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xml:lang="en"
+        xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <script type="text/javascript">
+        
+    </script>
+    <title>Planetas Star Wars</title>
+</h:head>
+
+   <h:body>
+    
+    <header> 
+		<div style="float: top; margin-left: 10px">
+			<h:graphicImage library="images" name="cotefacil.png" />
+		</div>
+		<div style="float: right;">
+			<h:graphicImage library="images" name="cotefacil-simbol.jpg"
+				width="150" />
+		</div>
+	</header>
+    
+    <h:form id="frm">
+			<p:messages autoUpdate="true" />
+			<h1>Inserir um planeta</h1>
+			<h:panelGrid columns="2">  
+
+				<p:outputLabel value="Nome" />
+				<p:inputText size="30" value="#{name}" required="true" label="Nome" />
+				
+				<p:outputLabel value="Clima" />
+				<p:selectOneMenu value="#{climate}" required="true" label="Clima">
+					<f:selectItem itemLabel="Selecione o clima" noSelectionOption="true"/>
+					<f:selectItem itemLabel="Frozen" itemValue="FROZEN"/>
+					<f:selectItem itemLabel="Murky" itemValue="MURKY"/>
+					<f:selectItem itemLabel="Temperate" itemValue="TEMPERATE"/>
+					<f:selectItem itemLabel="Tropical" itemValue="TROPICAL"/>
+				</p:selectOneMenu>
+								
+				<p:outputLabel value="Terreno" />
+				<p:inputText size="30" value="#{terrain}" required="true" label="Terreno" />
+
+				<p:outputLabel/>
+				<p:commandButton value="Cadastrar" action="#{insert}" 
+				update="frm tabela" style="margin-top:10px"/>
+				
+		</h:panelGrid>
+		
+		<p:dataTable value="#{planets}" var="p" id="tabela" paginator="true" rows="5" style="margin-top:10px" >
+			
+			<p:column headerText="Planeta(s)" width="200">
+				<p:outputLabel value="#{p.name}" />
+			</p:column>
+			
+			<p:column headerText="Clima" width="200">
+				<p:outputLabel value="#{p.climate}" />
+			</p:column>
+			
+			<p:column headerText="Terreno" width="200"> 
+				<p:outputLabel value="#{p.terrain}" />
+			</p:column>
+			
+			<p:column headerText="" width="100">
+				<p:commandButton icon="ui-icon-pencil" update="@form" process="@this">
+					<f:setPropertyActionListener value="#{p}" target="#{update}"/>
+				</p:commandButton>
+				
+				<p:commandButton action="#{delete}" icon="ui-icon-trash" update="tabela" process="@this">
+					<f:setPropertyActionListener value="#{p}" target="#{deletarplaneta}"/>
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+
+		</h:form>
+    
+    </h:body>
+
+</html>
