@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.bobhome.dtos.PlanetDTO;
-import br.com.bobhome.entities.Planet;
 import br.com.bobhome.services.PlanetService;
 
 @RestController
