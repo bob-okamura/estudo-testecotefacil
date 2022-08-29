@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.bobhome.dtos.PlanetDTO;
+import br.com.bobhome.entities.PlanetTO;
 import br.com.bobhome.services.PlanetService;
+import br.com.bobhome.services.SwapiPlanetService;
 
 @RestController
 @RequestMapping("/planets")
@@ -26,6 +28,23 @@ public class PlanetController {
 	
 	@Autowired
 	private PlanetService service;
+	
+	@Autowired
+	private SwapiPlanetService swapiPlanetService;
+	
+	@GetMapping("/swapi/counting")
+	public ResponseEntity<Integer> countingApparitions(@PathVariable
+			@RequestParam(name="name", value = "")String name){
+		int planetTO = swapiPlanetService.findQuantityOfApparitionsInMovies(name);
+		return ResponseEntity.ok().body(planetTO);
+	}
+	
+	@GetMapping("/swapi/names")
+	public ResponseEntity<PlanetTO> findPlanetsApi(@PathVariable
+			@RequestParam(name="name", value = "")String name){
+		PlanetTO planetTO = swapiPlanetService.findPlanetByName(name);
+		return ResponseEntity.ok().body(planetTO);
+	}
 	
 	@PostMapping
 	public ResponseEntity<PlanetDTO> insert(@RequestBody PlanetDTO dto){
